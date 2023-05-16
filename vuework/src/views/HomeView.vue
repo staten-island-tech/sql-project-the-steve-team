@@ -1,11 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-
+import { SUPA } from '../JS/supa.js';
 </script>
 
 <template>
   <main>
     <h1>Welcome to ShareCanvas</h1>
+    <RouterLink  to="/signin">Log In / Sign Up</RouterLink>
   </main>
 </template>
 
