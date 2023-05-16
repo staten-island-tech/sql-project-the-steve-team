@@ -3,9 +3,16 @@
 
 <template>
  <div>
-    <input type="text" placeholder="Username" />
-    <input type="text" placeholder="Password" />
-    <button>Log In</button>
-    <button>Create Account</button>
+    <div class="box">
+      <input type="text" placeholder="Username" />
+      <input type="text" placeholder="Password" />
+      <button>Log In</button></div>
  </div>
+ <div class="box"><button>Create Account</button></div>
 </template>
+
+<style>
+.box {
+width: 40%;
+}
+</style>
