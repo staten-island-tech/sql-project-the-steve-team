@@ -1,21 +1,36 @@
 <script setup>
+import {SUPA} from "../JS/supa.js"
+async function grabAndSignup(){
+  let username =  document.getElementById("SUU").value
+  let email =  document.getElementById("SUE").value
+  let password =  document.getElementById("SUP").value
+  SUPA.userSignUp(username,email,password)
+}
+async function grabAndLogin(){
+  let email =  document.getElementById("LIE").value
+  let password =  document.getElementById("LIP").value
+  console.log( await SUPA.userLogIn(email,password))
+}
 </script>
 
 <template>
+      <RouterLink  to="/">Home</RouterLink>
  <div class="container">
     <div class="box">
-      <input type="text" placeholder="Email" /> <br>
-      <input type="text" placeholder="Username" /> <br>
-      <input type="text" placeholder="Password" /> <br>
-      <button>Log In</button>
+      <input type="text" placeholder="Email" id="LIE"/> <br>
+      <input type="password" placeholder="Password" id="LIP" /> <br>
+      <button @click="grabAndLogin">Log In</button>
     </div>
     <div class="box">
-      <button>Create Account</button>
+      <input type="text" placeholder="Email" id="SUE"/> <br>
+      <input type="text" placeholder="Username"  id="SUU"/> <br>
+      <input type="password" placeholder="Password"  id="SUP"/> <br>
+      <button @click="grabAndSignup">Create Account</button>
     </div>
  </div>
 </template>
 
-<style>
+<style scoped>
 .container {
   width: 100%;
   height: 100%;

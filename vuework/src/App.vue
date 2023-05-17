@@ -11,4 +11,10 @@ import { RouterLink, RouterView } from 'vue-router'
   body {
     background-color: #333;
   }
+  a {
+    color: cyan
+  }
+  a:hover {
+    color: magenta;
+  }
 </style>
