@@ -25,19 +25,19 @@
   align-items: center;
 }
 .box {
-height: 400px;
-width: 400px;
-margin-top: 100px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-flex-wrap: wrap;
-background-color: black;
-border-radius: 10px;
-    border-width: 3px;
-    border-style: solid;
-    border-color: #4CAF50;
+  height: 400px;
+  width: 400px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: black;
+  border-radius: 10px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: #4CAF50;
 }
 button {
   background-color: #4CAF50;
