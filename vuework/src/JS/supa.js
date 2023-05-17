@@ -5,6 +5,26 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 const SUPA = {
-    base: supabase
+    base: supabase,
+    userSignUp: async function(username,email,password){
+        return await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    username: username
+                },
+                emailRedirectTo: {
+
+                }
+            }
+        })
+    },
+    userLogIn: async function(email,password){
+        return await supabase.auth.signInWithPassword({
+            email:email,
+            password:password
+        })
+    }
 }
 export {SUPA}
