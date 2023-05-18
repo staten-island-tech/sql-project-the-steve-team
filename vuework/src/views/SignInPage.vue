@@ -6,13 +6,15 @@ async function grabAndSignup(){
   let username =  document.getElementById("SUU").value
   let email =  document.getElementById("SUE").value
   let password =  document.getElementById("SUP").value
-  if (await SUPA.userSignUp(username,email,password)){
+  let x = (await SUPA.userSignUp(username,email,password))
+  console.log(x)
+  if (!x.error){
     document.getElementById("SUU").value = ""
     document.getElementById("SUE").value = ""
     document.getElementById("SUP").value = ""
     disp.value = "Please check your email for confirmation."
   }else{
-
+    disp.value = x.error.message
   }
 }
 async function grabAndLogin(){
@@ -34,7 +36,7 @@ async function grabAndLogin(){
       <input type="text" placeholder="Email" id="SUE"/> <br>
       <input type="text" placeholder="Username"  id="SUU"/> <br>
       <input type="password" placeholder="Password"  id="SUP"/> <br>
-      <p v-if="disp.value.length >=1">{{ disp }}</p>
+      <p v-if="disp.length >=1">{{ disp }}</p>
       <button @click="grabAndSignup">Create Account</button>
     </div>
  </div>
@@ -57,6 +59,7 @@ async function grabAndLogin(){
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   flex-wrap: wrap;
   background-color: black;
   border-radius: 10px;

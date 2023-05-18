@@ -25,6 +25,10 @@ const SUPA = {
             email:email,
             password:password
         })
+    },
+    getCurrentUser: async function(){
+        const { data: { user } } = await supabase.auth.getUser()
+        return user
     }
 }
 export {SUPA}
