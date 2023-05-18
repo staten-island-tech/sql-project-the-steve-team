@@ -1,10 +1,19 @@
 <script setup>
 import {SUPA} from "../JS/supa.js"
+import {ref} from "vue"
+let disp = ref("")
 async function grabAndSignup(){
   let username =  document.getElementById("SUU").value
   let email =  document.getElementById("SUE").value
   let password =  document.getElementById("SUP").value
-  SUPA.userSignUp(username,email,password)
+  if (await SUPA.userSignUp(username,email,password)){
+    document.getElementById("SUU").value = ""
+    document.getElementById("SUE").value = ""
+    document.getElementById("SUP").value = ""
+    disp.value = "Please check your email for confirmation."
+  }else{
+
+  }
 }
 async function grabAndLogin(){
   let email =  document.getElementById("LIE").value
@@ -25,6 +34,7 @@ async function grabAndLogin(){
       <input type="text" placeholder="Email" id="SUE"/> <br>
       <input type="text" placeholder="Username"  id="SUU"/> <br>
       <input type="password" placeholder="Password"  id="SUP"/> <br>
+      <p v-if="disp.value.length >=1">{{ disp }}</p>
       <button @click="grabAndSignup">Create Account</button>
     </div>
  </div>
@@ -60,5 +70,8 @@ button {
   padding: 15px 32px;
   text-align: center;
   display: inline-block;
+}
+p {
+  color: #C00;
 }
 </style>
