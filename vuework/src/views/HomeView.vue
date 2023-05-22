@@ -7,7 +7,9 @@ import { SUPA } from '../JS/supa.js';
 <template>
   <main>
     <h1>Welcome to ShareCanvas</h1>
-    <RouterLink  to="/signin">Log In / Sign Up</RouterLink>
+    <RouterLink  to="/signin">Log In / Sign Up</RouterLink><br>
+    <RouterLink  to="/design">Design</RouterLink>
+
   </main>
 </template>
 

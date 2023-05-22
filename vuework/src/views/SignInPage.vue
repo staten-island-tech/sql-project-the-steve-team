@@ -25,7 +25,6 @@ async function grabAndLogin(){
 </script>
 
 <template>
-      <RouterLink  to="/">Home</RouterLink>
  <div class="container">
     <div class="box">
       <input type="text" placeholder="Email" id="LIE"/> <br>
