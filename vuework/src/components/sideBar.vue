@@ -5,8 +5,6 @@
 <template>
     <main>
         <Section></Section>
-        <Section></Section>
-        <Section></Section>
 
     </main>
 </template>
