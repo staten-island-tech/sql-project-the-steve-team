@@ -211,6 +211,36 @@ class Polygon extends Shape {
         ctx.closePath()
     }
 }
+class Line extends Shape{
+    constructor(x,y,x2,y2,thickness,dash,color){
+        if (dash=="solid"){
+            dash=[1000,0]
+        }else if (dash=="dot"){
+            dash = [thickness,thickness]
+        }
+        super()
+        this.left = x
+        this.top = y
+        this.right = x2
+        this.bottom = y2
+        this.thickness = thickness
+        this.dash = dash
+        this.color = color
+        this.shape = "Line"
+        shapeList.push(this)
+        this.slID = shapeList.length-1     
+    }
+    _d(ctx){
+        ctx.strokeStyle = this.color
+        ctx.lineWidth = this.thickness
+        ctx.setLineDash(this.dash)
+        ctx.beginPath()
+        ctx.moveTo(this.left,this.top)
+        ctx.lineTo(this.right,this.bottom)
+        ctx.stroke()
+        ctx.closePath()
+    }
+}
 function removeFromShapeList(x,sl){
     let supL = sl ||shapeList
     supL.splice(x,1)
@@ -277,4 +307,4 @@ class Camera {
 }
 let Pi = 3.1415926
 let Zero = 1/(10**16)
-export {Shape,Rectangle,ShapeImage, Clump, intF,setXY, Camera,Pi,Zero, Triangle, Polygon} 
+export {Shape,Rectangle,ShapeImage, Clump, intF,setXY, Camera,Pi,Zero, Triangle, Polygon, Line} 
