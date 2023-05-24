@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-      <RouterLink  to="/">Home</RouterLink>
+      <RouterLink  to="/" style="z-index: 1;">Home</RouterLink>
 
   <RouterView />
 </template>
@@ -18,4 +18,5 @@ import { RouterLink, RouterView } from 'vue-router'
   a:hover {
     color: magenta;
   }
+  
 </style>

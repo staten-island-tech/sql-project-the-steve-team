@@ -4,25 +4,24 @@ import { SUPA } from '../JS/supa.js';
 import sideBar from '../components/sideBar.vue'
 import { Rectangle, Shape, ShapeImage, intF,setXY,Camera, Clump, Pi, Zero, Triangle, Polygon, Line } from "../JS/shape.js"
 import { Animation, JointBasedAnimation, Joint, Transition} from "../JS/animate.js"
+import Properties from '../components/Properties.vue';
 let download
 function dot(){
-let cam = new Camera(0,0,1)
-let canv = document.getElementById("canv")
-let ctx = canv.getContext("2d")
-new Line(0,0,100,100,10,"dot","blue")
-setInterval(() => { 
+  let cam = new Camera(0,0,1)
+  let canv = document.getElementById("canv")
+  let ctx = canv.getContext("2d")
+  new Line(0,0,100,100,10,"dot","blue")
+  setInterval(() => { 
     cam.perspective(ctx, intF)
-}, 1000/60);
+  }, 1000/60);
 
-download = function(){
-  let url = canv.toDataURL()
-  let link = document.createElement("a")
-  link.href = url
-  link.download = "canvas.png"
-    link.click();
- // var win = window.open();
-  //win.document.write('<iframe src="' + url  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
-}
+  download = function(){
+    let url = canv.toDataURL()
+    let link = document.createElement("a")
+    link.href = url
+    link.download = "canvas.png"
+      link.click();
+    }
 
 }
 setTimeout(() => {
