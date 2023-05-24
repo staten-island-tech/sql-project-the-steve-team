@@ -17,8 +17,8 @@
         width: 20vw;
         height:82vh;
         background-color: #556 ;
-        z-index: -1;
         margin-left: 20px;
         border-radius: 50px;
+        pointer-events: all;
     }
 </style>
