@@ -5,8 +5,8 @@
 
 <template>
     <main id="m">
-        <Section></Section>
-        <Properties :propertyArray="[{Key:'Width',Value:60}]"></Properties>
+        <Section @SolidLine="$emit('_SolidLine')" @DashedLine="$emit('_DashedLine')" ></Section>
+        <Properties :propertyArray="[{Key:'Width',Value:60}]" v-if="targetShape"></Properties>
 
     </main>
     

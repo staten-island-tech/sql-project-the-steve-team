@@ -6,10 +6,10 @@
 <div>
     <h1>Lines</h1>
     <div class="options">
-        <button id="solid"></button>
-        <button id="dashed"></button>
+        <button @click="$emit('SolidLine')" id="solid"></button>
+        <button @click="$emit('DashedLine')" id="dashed"></button>
     </div>
-    <br><br><br><br><br><br>
+    <br><br>
     <h1>Shapes</h1>
     <div class="options">
         <p id="test"></p>
