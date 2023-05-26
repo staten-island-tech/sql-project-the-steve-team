@@ -12,7 +12,8 @@
     <br><br>
     <h1>Shapes</h1>
     <div class="options">
-        <p id="test"></p>
+        <button @click="$emit('Rectangle')" id="rectangle"></button>
+        <button @click="$emit('Triangle')" id="triangle"></button>
     </div>
 
 </div>
@@ -45,5 +46,11 @@ button {
 
 #dashed {
     background-image: url('dashedline.png');
+}
+#rectangle {
+background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Square_-_black_simple.svg/1200px-Square_-_black_simple.svg.png');
+}
+#triangle {
+    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/001/200/602/small/triangle.png");
 }
 </style>

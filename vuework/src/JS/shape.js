@@ -24,6 +24,10 @@ class Shape{
 
     }
     setBorder(width,dash,color){
+        if (width=="none"){
+            this.border = false
+            return false
+        }
         if (dash=="solid"){
             dash=[1000,0]
         }else if (dash=="dot"){
@@ -34,6 +38,7 @@ class Shape{
             dash: dash,
             width: width
         }
+       
     }
     rotate(theta,rx,ry){
         this.rotation = theta
@@ -307,4 +312,7 @@ class Camera {
 }
 let Pi = 3.1415926
 let Zero = 1/(10**16)
-export {Shape,Rectangle,ShapeImage, Clump, intF,setXY, Camera,Pi,Zero, Triangle, Polygon, Line} 
+let getShapeList = function (){
+    return shapeList
+}
+export {Shape,Rectangle,ShapeImage, Clump, intF,setXY, Camera,Pi,Zero, Triangle, Polygon, Line,getShapeList} 

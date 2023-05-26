@@ -3,16 +3,45 @@ import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue';
 import { SUPA } from '../JS/supa.js';
 import sideBar from '../components/sideBar.vue'
-import { Rectangle, Shape, ShapeImage, intF,setXY,Camera, Clump, Pi, Zero, Triangle, Polygon, Line } from "../JS/shape.js"
+import { Rectangle, Shape, ShapeImage, intF,setXY,Camera, Clump, Pi, Zero, Triangle, Polygon, Line,getShapeList } from "../JS/shape.js"
 import { Animation, JointBasedAnimation, Joint, Transition} from "../JS/animate.js"
 import Properties from '../components/Properties.vue';
 let download = ref(false), CREATE
+let mouse = [0,0]
+window.onmousemove= function(e){
+  mouse[0] = e.clientX
+  mouse[1] = e.clientY
+  if (canv){
+   let prop = canv.getBoundingClientRect()
+   mouse[0] -= prop.left
+   mouse[1] -= prop.top
+  }
+}
+
+function pointLiesOnRectangle(x,y,top,left,bottom,right){
+  return (x<=right && x>=left) && (y<=bottom && y>=top)
+}
+
+let canv
 function dot(){
-  let cam = new Camera(0,0,1)
-  let canv = document.getElementById("canv")
+  let b
+  let hoveredShape
+   canv = document.getElementById("canv")
   let ctx = canv.getContext("2d")
   setInterval(() => { 
-    cam.perspective(ctx, intF)
+    let shapeList = getShapeList()
+    if (hoveredShape && !(pointLiesOnRectangle(mouse[0],mouse[1],hoveredShape.top,hoveredShape.left,hoveredShape.top + hoveredShape.height, hoveredShape.left +hoveredShape.width))){
+      hoveredShape.setBorder("none")
+    }
+    shapeList.forEach(s=>{
+      if (s.shape == "Rectangle" || s.shape=="Triangle"){
+        if(pointLiesOnRectangle(mouse[0],mouse[1],s.top,s.left,s.top + s.height, s.left +s.width)){
+          s.setBorder(4,[8,4],"#5AF")
+          hoveredShape = s
+        }
+      }
+    })
+    intF(ctx)
   }, 1000/60);
 
   download.value = function(){
@@ -25,10 +54,15 @@ function dot(){
   CREATE = function(thing) {
     if (thing == "solidLine"){
       new Line(0,0,100,100,4,"solid","#000")
-    }else (thing == "dashedLine")[
+    }else if  (thing == "dashedLine"){
       new Line(0,0,100,100,4,[8,4],"#000")
-    ]
+    }else if (thing=="rectangle"){
+       b = new Rectangle(20,20,125,70,"#000")
+    }else if (thing=="triangle"){
+      new Triangle(20,20,100,80,"#000",0,1,0.5,0,1,1)
+    }
   }
+
 }
 setTimeout(() => {
   dot()
@@ -48,7 +82,7 @@ setXY(400,400)
 <template>
   <main>
     <h1>Design Here</h1>
-    <sideBar @_SolidLine="CREATE('solidLine')"  @_DashedLine="CREATE('dashedLine')"   v-if="download"/>
+    <sideBar @_SolidLine="CREATE('solidLine')"  @_DashedLine="CREATE('dashedLine')"  @_Rectangle="CREATE('rectangle')" @_Triangle="CREATE('triangle')" v-if="download"/>
     <canvas width="1250" height="700" id="canv" @click="dot"></canvas><br>
     <label  v-if="download"><a @click="download()">Download</a> <label>&nbsp;&nbsp;&nbsp;&nbsp;</label> <a>Save to Profile</a> <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>  <a>Save as Video</a></label>
   </main>
