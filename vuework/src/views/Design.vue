@@ -3,20 +3,12 @@ import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue';
 import { SUPA } from '../JS/supa.js';
 import sideBar from '../components/sideBar.vue'
+import Stores from '../stores/counter';
 import { Rectangle, Shape, ShapeImage, intF,setXY,Camera, Clump, Pi, Zero, Triangle, Polygon, Line,getShapeList } from "../JS/shape.js"
 import { Animation, JointBasedAnimation, Joint, Transition} from "../JS/animate.js"
 import Properties from '../components/Properties.vue';
 let download = ref(false), CREATE
 let mouse = [0,0]
-window.onmousemove= function(e){
-  mouse[0] = e.clientX
-  mouse[1] = e.clientY
-  if (canv){
-   let prop = canv.getBoundingClientRect()
-   mouse[0] -= prop.left
-   mouse[1] -= prop.top
-  }
-}
 
 function pointLiesOnRectangle(x,y,top,left,bottom,right){
   return (x<=right && x>=left) && (y<=bottom && y>=top)
@@ -28,19 +20,10 @@ function dot(){
   let hoveredShape
    canv = document.getElementById("canv")
   let ctx = canv.getContext("2d")
+  let shapeList
   setInterval(() => { 
-    let shapeList = getShapeList()
-    if (hoveredShape && !(pointLiesOnRectangle(mouse[0],mouse[1],hoveredShape.top,hoveredShape.left,hoveredShape.top + hoveredShape.height, hoveredShape.left +hoveredShape.width))){
-      hoveredShape.setBorder("none")
-    }
-    shapeList.forEach(s=>{
-      if (s.shape == "Rectangle" || s.shape=="Triangle"){
-        if(pointLiesOnRectangle(mouse[0],mouse[1],s.top,s.left,s.top + s.height, s.left +s.width)){
-          s.setBorder(4,[8,4],"#5AF")
-          hoveredShape = s
-        }
-      }
-    })
+     shapeList = getShapeList()
+
     intF(ctx)
   }, 1000/60);
 
@@ -63,6 +46,33 @@ function dot(){
     }
   }
 
+  
+  window.onmousemove= function(e){
+  mouse[0] = e.clientX
+  mouse[1] = e.clientY
+  if (canv){
+   let prop = canv.getBoundingClientRect()
+   mouse[0] -= prop.left
+   mouse[1] -= prop.top
+let newHoveredShape
+    shapeList.forEach(s=>{
+      if (s.shape == "Rectangle" || s.shape=="Triangle"){
+        if(pointLiesOnRectangle(mouse[0],mouse[1],s.top,s.left,s.top + s.height, s.left +s.width)){
+         newHoveredShape = s
+        }
+      }
+    })
+    if (hoveredShape && (!(pointLiesOnRectangle(mouse[0],mouse[1],hoveredShape.top,hoveredShape.left,hoveredShape.top + hoveredShape.height, hoveredShape.left +hoveredShape.width)) || hoveredShape!=newHoveredShape)){
+      hoveredShape.setBorder("none")
+      hoveredShape = false
+    } 
+    if (newHoveredShape){
+      newHoveredShape.setBorder(4,[8,4],"#5AF")
+      hoveredShape = newHoveredShape
+    }
+  }
+  
+}
 }
 setTimeout(() => {
   dot()

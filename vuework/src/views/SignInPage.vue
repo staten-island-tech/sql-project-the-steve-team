@@ -2,6 +2,9 @@
 import {SUPA} from "../JS/supa.js"
 import {ref} from "vue"
 let disp = ref("")
+import Stores from '../stores/counter'
+import { storeToRefs } from 'pinia'
+let UserStore = storeToRefs(Stores.User())
 async function grabAndSignup(){
   let username =  document.getElementById("SUU").value
   let email =  document.getElementById("SUE").value
@@ -13,6 +16,8 @@ async function grabAndSignup(){
     document.getElementById("SUE").value = ""
     document.getElementById("SUP").value = ""
     disp.value = "Please check your email for confirmation."
+    UserStore.user.value = x.data.user
+    UserStore.session.value = x.data.session
   }else{
     disp.value = x.error.message
   }

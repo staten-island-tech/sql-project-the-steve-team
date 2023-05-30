@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js'
-
 const supabaseUrl = 'https://vxaferopnqdpzeundppw.supabase.co'
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4YWZlcm9wbnFkcHpldW5kcHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MzQ4MTIzMCwiZXhwIjoxOTk5MDU3MjMwfQ.tVG2YuF-_XHSDtUYqchdpQjlLRmd2n7LZaPI-i88vhA"
 const supabase = createClient(supabaseUrl, supabaseKey)
@@ -7,12 +6,14 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 const SUPA = {
     base: supabase,
     userSignUp: async function(username,email,password){
+        let key = `${Date.now()}${Math.floor(Math.random()*10000000)}`
         return await supabase.auth.signUp({
             email: email,
             password: password,
             options: {
                 data: {
-                    username: username
+                    username: username,
+                    publicDataKey: key
                 },
                 emailRedirectTo: {
 
@@ -29,6 +30,11 @@ const SUPA = {
     getCurrentUser: async function(){
         const { data: { user } } = await supabase.auth.getUser()
         return user
+    },
+    updateUsername: async function(username){
+        const { user, error } = await supabase.auth.update({
+            data: { username: username }
+          })
     }
 }
 export {SUPA}
