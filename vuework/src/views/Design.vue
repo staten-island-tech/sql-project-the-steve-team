@@ -17,7 +17,7 @@ function pointLiesOnRectangle(x,y,top,left,bottom,right){
 let canv
 function dot(){
   let b
-  let hoveredShape
+  let hoveredShape, selectedShape
    canv = document.getElementById("canv")
   let ctx = canv.getContext("2d")
   let shapeList
@@ -63,28 +63,55 @@ let newHoveredShape
       }
     })
     if (hoveredShape && (!(pointLiesOnRectangle(mouse[0],mouse[1],hoveredShape.top,hoveredShape.left,hoveredShape.top + hoveredShape.height, hoveredShape.left +hoveredShape.width)) || hoveredShape!=newHoveredShape)){
+      if (hoveredShape!= selectedShape){
       hoveredShape.setBorder("none")
+      }
       hoveredShape = false
     } 
     if (newHoveredShape){
+      if (newHoveredShape!=selectedShape){
       newHoveredShape.setBorder(4,[8,4],"#5AF")
+      }
       hoveredShape = newHoveredShape
     }
   }
   
 }
+window.onclick = function(e){
+  mouse[0] = e.clientX
+  mouse[1] = e.clientY
+  if (canv){
+   let prop = canv.getBoundingClientRect()
+   mouse[0] -= prop.left
+   mouse[1] -= prop.top
+   let newSelectedShape
+   shapeList = getShapeList()
+    shapeList.forEach(s=>{
+      if (s.shape == "Rectangle" || s.shape=="Triangle"){
+        if(pointLiesOnRectangle(mouse[0],mouse[1],s.top,s.left,s.top + s.height, s.left +s.width)){
+          newSelectedShape = s
+        }
+      }
+    })
+    console.log(newSelectedShape)
+    if (newSelectedShape){
+      console.log(newSelectedShape)
+
+      if (selectedShape && selectedShape!=newSelectedShape){
+        selectedShape.setBorder("none")
+        selectedShape = false
+      } 
+      if (newSelectedShape){
+        newSelectedShape.setBorder(4,"solid","#ADF")
+        selectedShape = newSelectedShape
+      }
+    }
+}
+}
 }
 setTimeout(() => {
   dot()
 }, 200);
-window.onkeyup = function(e){
-    console.log(e.key)
-    if (e.key == " "){
-        player.cy +=10
-        player.cy %= 400
-        ts = Date.now()
-    } 
-}
 setXY(400,400)
 
 </script>
