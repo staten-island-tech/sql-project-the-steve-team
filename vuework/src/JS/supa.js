@@ -6,14 +6,12 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 const SUPA = {
     base: supabase,
     userSignUp: async function(username,email,password){
-        let key = `${Date.now()}${Math.floor(Math.random()*10000000)}`
         return await supabase.auth.signUp({
             email: email,
             password: password,
             options: {
                 data: {
                     username: username,
-                    publicDataKey: key
                 },
                 emailRedirectTo: {
 

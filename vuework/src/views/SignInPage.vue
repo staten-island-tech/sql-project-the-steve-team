@@ -2,8 +2,10 @@
 import {SUPA} from "../JS/supa.js"
 import {ref} from "vue"
 let disp = ref("")
+let disp2 = ref("")
 import Stores from '../stores/counter'
 import { storeToRefs } from 'pinia'
+import router from '../router'
 let UserStore = storeToRefs(Stores.User())
 async function grabAndSignup(){
   let username =  document.getElementById("SUU").value
@@ -25,7 +27,14 @@ async function grabAndSignup(){
 async function grabAndLogin(){
   let email =  document.getElementById("LIE").value
   let password =  document.getElementById("LIP").value
-  console.log( await SUPA.userLogIn(email,password))
+  let x =  await SUPA.userLogIn(email,password)
+  if (!x.error){
+    UserStore.user.value = x.data.user
+    UserStore.session.value = x.data.session
+    console.log("bozo")
+    router.push({path:"/"})
+  }
+  disp2.value = x.error.message
 }
 </script>
 
@@ -34,6 +43,7 @@ async function grabAndLogin(){
     <div class="box">
       <input type="text" placeholder="Email" id="LIE"/> <br>
       <input type="password" placeholder="Password" id="LIP" /> <br>
+      <p v-if="disp2.length >=1">{{ disp2 }}</p>
       <button @click="grabAndLogin">Log In</button>
     </div>
     <div class="box">

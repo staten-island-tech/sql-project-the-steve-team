@@ -4,7 +4,7 @@ import { SUPA } from '../JS/supa.js';
 import Stores from '../stores/counter';
 import { storeToRefs } from 'pinia';
 let UserStore = storeToRefs(Stores.User())
-console.log(UserStore.user._rawValue)
+console.log(UserStore.user._rawValue,UserStore.session._rawValue)
 </script>
 
 <template>
