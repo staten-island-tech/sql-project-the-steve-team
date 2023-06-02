@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import { SUPA } from '../JS/supa.js';
 import Stores from '../stores/counter';
 import { storeToRefs } from 'pinia';
+import { DesignAspect } from '../components/designAspect.vue'
 let UserStore = storeToRefs(Stores.User())
 console.log(UserStore.user._rawValue,UserStore.session._rawValue)
 let user =UserStore.user._rawValue
