@@ -5,8 +5,8 @@ let disp = ref("")
 let disp2 = ref("")
 import Stores from '../stores/counter'
 import { storeToRefs } from 'pinia'
-import router from '../router'
 let UserStore = storeToRefs(Stores.User())
+console.log(UserStore.user._rawValue,UserStore.session._rawValue)
 async function grabAndSignup(){
   let username =  document.getElementById("SUU").value
   let email =  document.getElementById("SUE").value
@@ -40,6 +40,7 @@ async function grabAndLogin(){
 
 <template>
  <div class="container">
+    <h2><p v-if="UserStore.user._rawValue"><h2>You are already logged in. Attempting to log in or sign up will automatically log you out.</h2></p></h2>
     <div class="box">
       <input type="text" placeholder="Email" id="LIE"/> <br>
       <input type="password" placeholder="Password" id="LIP" /> <br>
@@ -90,5 +91,9 @@ button {
 }
 p {
   color: #C00;
+}
+h2 {
+  width: 100vw;
+  text-align: center;
 }
 </style>

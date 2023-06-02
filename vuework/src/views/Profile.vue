@@ -12,6 +12,7 @@ function censorEmail(str){
   str = splits.join('@')
   return str
 }
+let designs = []
 </script>
 <template>
   <main>
@@ -20,6 +21,10 @@ function censorEmail(str){
       <p class="red" v-if="!user.confirmed_at">You need to confirm your email ({{censorEmail(user.email)}})</p>
       <p class="green" v-else>Your email is confirmed!({{censorEmail(user.email)}})</p>
       <h3>Created On: {{user.created_at.split("T")[0]}}</h3>
+      <section>
+        <h3>Your designs:</h3>
+        <div v-for="design in designs"></div>
+      </section>
     </div>
     <div v-else><br><h2><RouterLink to="/SignIn">Click to Sign Up/ Log in</RouterLink></h2></div>
 
