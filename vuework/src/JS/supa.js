@@ -12,6 +12,8 @@ const SUPA = {
             options: {
                 data: {
                     username: username,
+                    thing:"hi",
+                    designs:["hi"]
                 },
                 emailRedirectTo: {
 

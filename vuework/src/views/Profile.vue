@@ -13,7 +13,11 @@ function censorEmail(str){
   str = splits.join('@')
   return str
 }
-let designs = []
+let designs = [{canvas:{
+  height:700,
+  width:1250,
+  title: "My first canvas"
+}}]
 </script>
 <template>
   <main>
@@ -26,7 +30,7 @@ let designs = []
       <section>
         <h3>Your designs:</h3>
         <div id="spread">
-          <DesignAspect v-for="design in designs" ></DesignAspect>
+          <DesignAspect v-for="design in designs" :canvas="design.canvas">{{ design.canvas.title }}</DesignAspect>
         </div>
       </section>
     </div>
