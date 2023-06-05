@@ -15,9 +15,8 @@ function pointLiesOnRectangle(x,y,top,left,bottom,right){
 }
 
 let canv
-let hoveredShape, selectedShape
+let hoveredShape, selectedShape = ref(false)
 function dot(){
-  let b
    canv = document.getElementById("canv")
   let ctx = canv.getContext("2d")
   let shapeList
@@ -40,14 +39,14 @@ function dot(){
     }else if  (thing == "dashedLine"){
       new Line(0,0,100,100,4,[8,4],"#000")
     }else if (thing=="rectangle"){
-       b = new Rectangle(20,20,125,70,"#000")
+        new Rectangle(20,20,125,70,"#000")
     }else if (thing=="triangle"){
       new Triangle(20,20,100,80,"#000",0,1,0.5,0,1,1)
     }
   }
 
   
-  window.onmousemove= function(e){
+  window.onmousemove= function(e){}/*
   mouse[0] = e.clientX
   mouse[1] = e.clientY
   if (canv){
@@ -69,14 +68,14 @@ let newHoveredShape
       hoveredShape = false
     } 
     if (newHoveredShape){
-      if (newHoveredShape!=selectedShape){
+      if (newHoveredShape!=selectedShape.value){
       newHoveredShape.setBorder(4,[8,4],"#5AF")
       }
       hoveredShape = newHoveredShape
     }
   }
   
-}
+}*/
 window.onclick = function(e){
   mouse[0] = e.clientX
   mouse[1] = e.clientY
@@ -93,18 +92,17 @@ window.onclick = function(e){
         }
       }
     })
-    console.log(newSelectedShape)
     if (newSelectedShape){
-      if (selectedShape && selectedShape!=newSelectedShape){
-        selectedShape.setBorder("none")
-        selectedShape = false
+      if (selectedShape._rawValue && selectedShape._rawValue!=newSelectedShape){
+        selectedShape._rawValue.setBorder("none")
+        selectedShape.value = false
       } 
       if (newSelectedShape){
         newSelectedShape.setBorder(4,"solid","#ADF")
-        selectedShape = newSelectedShape
+        selectedShape.value = newSelectedShape
       }
     }
-    console.log(selectedShape)
+    console.log(selectedShape._rawValue)
 
 }
 }
