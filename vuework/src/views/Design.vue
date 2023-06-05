@@ -15,9 +15,9 @@ function pointLiesOnRectangle(x,y,top,left,bottom,right){
 }
 
 let canv
+let hoveredShape, selectedShape
 function dot(){
   let b
-  let hoveredShape, selectedShape
    canv = document.getElementById("canv")
   let ctx = canv.getContext("2d")
   let shapeList
@@ -95,8 +95,6 @@ window.onclick = function(e){
     })
     console.log(newSelectedShape)
     if (newSelectedShape){
-      console.log(newSelectedShape)
-
       if (selectedShape && selectedShape!=newSelectedShape){
         selectedShape.setBorder("none")
         selectedShape = false
@@ -106,6 +104,8 @@ window.onclick = function(e){
         selectedShape = newSelectedShape
       }
     }
+    console.log(selectedShape)
+
 }
 }
 }

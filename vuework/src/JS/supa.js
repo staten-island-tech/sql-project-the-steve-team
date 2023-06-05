@@ -12,8 +12,7 @@ const SUPA = {
             options: {
                 data: {
                     username: username,
-                    thing:"hi",
-                    designs:["hi"]
+                    designs:[]
                 },
                 emailRedirectTo: {
 
@@ -35,6 +34,19 @@ const SUPA = {
         const { user, error } = await supabase.auth.update({
             data: { username: username }
           })
+        return [user,error]
+    },
+    updateUserDesign: async function(designs, des){
+        let pos = designs.findIndex(d=> d.canvas.id == des.canvas.id)
+        if (pos >= 0){
+            designs[pos] = des
+        }else {
+            designs.push(des)
+        }
+        const { user, error } = await supabase.auth.update({
+            data: { designs: designs }
+          })
+          return [user, error]
     }
 }
 export {SUPA}
