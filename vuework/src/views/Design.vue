@@ -121,7 +121,7 @@ setXY(400,400)
   <main>
     <h1>Design Here</h1>
     <sideBar @_SolidLine="CREATE('solidLine')"  @_DashedLine="CREATE('dashedLine')"  @_Rectangle="CREATE('rectangle')" @_Triangle="CREATE('triangle')" v-if="download"> 
-      <Properties v-if="selectedShape" :propertyArray="[{Key:'width',Value:selectedShape.width}]" @adjust="(k,v)=>{selectedShape[k]=v; console.log(k,v)}"></Properties>
+      <Properties v-if="selectedShape" :propertyArray="[{Key:'Left',Value:selectedShape.left, Type:'number'},{Key:'Top',Value:selectedShape.top, Type:'number'},{Key:'Width',Value:selectedShape.width, Type:'number'},{Key:'Height',Value:selectedShape.height, Type:'number'},{Key:'Color',Value:selectedShape.color, Type:'color'}]" @adjust="(k,v)=>{selectedShape[k]=v; console.log(k,v)}"></Properties>
     </sideBar>
     <canvas width="1250" height="700" id="canv" @click="dot"></canvas><br>
     <label  v-if="download"><a @click="download()">Download</a> <label>&nbsp;&nbsp;&nbsp;&nbsp;</label> <a>Save to Profile</a> <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>  <a>Save as Video</a></label>
