@@ -9,9 +9,12 @@ import { Animation, JointBasedAnimation, Joint, Transition} from "../JS/animate.
 import Properties from '../components/Properties.vue';
 let download = ref(false), CREATE
 let mouse = [0,0]
-
+let render = ref(true)
 function pointLiesOnRectangle(x,y,top,left,bottom,right){
   return (x<=right && x>=left) && (y<=bottom && y>=top)
+}
+function constructPropertyArray(shape){
+
 }
 
 let canv
@@ -117,7 +120,9 @@ setXY(400,400)
 <template>
   <main>
     <h1>Design Here</h1>
-    <sideBar @_SolidLine="CREATE('solidLine')"  @_DashedLine="CREATE('dashedLine')"  @_Rectangle="CREATE('rectangle')" @_Triangle="CREATE('triangle')" v-if="download"/>
+    <sideBar @_SolidLine="CREATE('solidLine')"  @_DashedLine="CREATE('dashedLine')"  @_Rectangle="CREATE('rectangle')" @_Triangle="CREATE('triangle')" v-if="download"> 
+      <Properties v-if="selectedShape" :propertyArray="[{Key:'width',Value:selectedShape.width}]" @adjust="(k,v)=>{selectedShape[k]=v; console.log(k,v)}"></Properties>
+    </sideBar>
     <canvas width="1250" height="700" id="canv" @click="dot"></canvas><br>
     <label  v-if="download"><a @click="download()">Download</a> <label>&nbsp;&nbsp;&nbsp;&nbsp;</label> <a>Save to Profile</a> <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>  <a>Save as Video</a></label>
   </main>
