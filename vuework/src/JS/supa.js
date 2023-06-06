@@ -31,19 +31,20 @@ const SUPA = {
         return user
     },
     updateUsername: async function(username){
-        const { user, error } = await supabase.auth.update({
+        const { user, error } = await supabase.auth.updateUser({
             data: { username: username }
           })
         return [user,error]
     },
     updateUserDesign: async function(designs, des){
+        console.log(supabase.auth.updateUser)
         let pos = designs.findIndex(d=> d.canvas.id == des.canvas.id)
         if (pos >= 0){
             designs[pos] = des
         }else {
             designs.push(des)
         }
-        const { user, error } = await supabase.auth.update({
+        const { user, error } = await supabase.auth.updateUser({
             data: { designs: designs }
           })
           return [user, error]

@@ -13,11 +13,7 @@ function censorEmail(str){
   str = splits.join('@')
   return str
 }
-let designs = [{canvas:{
-  height:700,
-  width:1250,
-  title: "My first canvas"
-}}]
+let designs = user && user.user_metadata.designs
 </script>
 <template>
   <main>

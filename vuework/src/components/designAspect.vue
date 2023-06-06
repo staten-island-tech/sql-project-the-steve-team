@@ -1,11 +1,13 @@
 <script setup>
 import { defineProps } from 'vue';
-let prop = defineProps(["canvas","designString"])
+import {Shape,Rectangle,ShapeImage, Clump, intF,setXY, Camera,Pi,Zero, Triangle, Polygon, Line,getShapeList} from "../JS/shape.js"
+let prop = defineProps(["canvas","designArray"])
 let ar = prop.canvas.width/prop.canvas.height
 let zoom = 300/prop.canvas.height
 setTimeout(()=>{
     let canv = document.getElementById("canv")
     let ctx = canv.getContext("2d")
+    
 },500)
 </script>
 

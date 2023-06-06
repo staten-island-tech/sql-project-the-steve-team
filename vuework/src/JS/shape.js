@@ -14,7 +14,9 @@ function intF(ctx){
             a.updateKeyframe(now - a.get("mostRecentStartTime"))
         }
     })
-    ctx.clearRect(0, 0, canv.width, canv.height);
+    if (typeof canv != "undefined"){
+        ctx.clearRect(0, 0, canv.width, canv.height);
+    }
     shapeList.forEach(shape =>{
         shape.draw(ctx)
     })
