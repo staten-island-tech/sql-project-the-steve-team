@@ -102,6 +102,12 @@ window.onclick = function(e){
           console.log(newSelectedShape)
         }
       }
+      else if (s.shape == "Line") {
+        if(pointLiesOnRectangle(mouse[0],mouse[1],s.top,s.left,s.top + s.bottom, s.right)){
+          newSelectedShape = s
+          console.log(newSelectedShape)
+        }
+      }
     })
     if (newSelectedShape){
       if (selectedShape._rawValue && selectedShape._rawValue!=newSelectedShape){
@@ -149,6 +155,7 @@ const saveToProfile = async function(){
     <h1>Design Here</h1>
     <sideBar @_SolidLine="CREATE('solidLine')"  @_DashedLine="CREATE('dashedLine')"  @_Rectangle="CREATE('rectangle')" @_Triangle="CREATE('triangle')" v-if="download"> 
       <Properties v-if="(selectedShape && !selectedShape.UnEditable)" :propertyArray="[{Key:'Left',Value:selectedShape.left, Type:'number'},{Key:'Top',Value:selectedShape.top, Type:'number'},{Key:'Width',Value:selectedShape.width, Type:'number'},{Key:'Height',Value:selectedShape.height, Type:'number'},{Key:'Color',Value:selectedShape.color, Type:'color'}]" @adjust="(k,v)=>{selectedShape[k.toLowerCase()]=v; console.log(k,v)}"></Properties>
+      <Properties v-else-if="(selectedShape && !selectedShape.UnEditable)" :propertyArray="[{Key:'Left',Value:selectedShape.left, Type:'number'},{Key:'Top',Value:selectedShape.top, Type:'number'},{Key:'Right',Value:selectedShape.right, Type:'number'},{Key:'Bottom',Value:selectedShape.bottom, Type:'number'},{Key:'Thickness',Value:selectedShape.thickness, Type:'number'},{Key:'Color',Value:selectedShape.color, Type:'color'}]" @adjust="(k,v)=>{selectedShape[k.toLowerCase()]=v; console.log(k,v)}"></Properties>
       <input placeholder="Title" v-model="title">
 
     </sideBar>

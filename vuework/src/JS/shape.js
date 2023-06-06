@@ -247,6 +247,7 @@ class Line extends Shape{
         ctx.stroke()
         ctx.closePath()
     }
+    setBorder(){}
 }
 function removeFromShapeList(x,sl){
     let supL = sl ||shapeList

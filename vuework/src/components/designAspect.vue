@@ -37,6 +37,4 @@ canvas {
   a{
     margin-bottom: 2px;
   }
-  h2{
-  }
 </style>
