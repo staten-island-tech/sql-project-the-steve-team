@@ -6,7 +6,7 @@ console.log(prop.propertyArray)
     <main>
         <h3>Properties</h3>
             <ul>
-                <li v-for="p in prop.propertyArray"><b>{{p.Key}}</b>: <input type="number" :id="p.Key" v-model="p.Value" v-on:input="$emit('adjust', p.Key, p.Value)"></li>
+                <li v-for="p in prop.propertyArray"><b>{{p.Key}}</b>: <input :type="p.Type" :id="p.Key" v-model="p.Value" v-on:input="$emit('adjust', p.Key, p.Value)"></li>
             </ul>
     </main>
 </template>

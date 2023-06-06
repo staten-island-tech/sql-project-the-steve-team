@@ -19,9 +19,15 @@ function constructPropertyArray(shape){
 
 let canv
 let hoveredShape, selectedShape = ref(false)
+let xbb=0
 function dot(){
    canv = document.getElementById("canv")
   let ctx = canv.getContext("2d")
+  if (xbb < 1){
+  let g = new Rectangle(0,0,1250,700,"#0000")
+  g.UnEditable = true
+  xbb+=100
+  }
   let shapeList
   setInterval(() => { 
      shapeList = getShapeList()
@@ -92,6 +98,7 @@ window.onclick = function(e){
       if (s.shape == "Rectangle" || s.shape=="Triangle"){
         if(pointLiesOnRectangle(mouse[0],mouse[1],s.top,s.left,s.top + s.height, s.left +s.width)){
           newSelectedShape = s
+          console.log(newSelectedShape)
         }
       }
     })
@@ -112,6 +119,7 @@ window.onclick = function(e){
 }
 setTimeout(() => {
   dot()
+  return "good"
 }, 200);
 setXY(400,400)
 
@@ -121,7 +129,7 @@ setXY(400,400)
   <main>
     <h1>Design Here</h1>
     <sideBar @_SolidLine="CREATE('solidLine')"  @_DashedLine="CREATE('dashedLine')"  @_Rectangle="CREATE('rectangle')" @_Triangle="CREATE('triangle')" v-if="download"> 
-      <Properties v-if="selectedShape" :propertyArray="[{Key:'Left',Value:selectedShape.left, Type:'number'},{Key:'Top',Value:selectedShape.top, Type:'number'},{Key:'Width',Value:selectedShape.width, Type:'number'},{Key:'Height',Value:selectedShape.height, Type:'number'},{Key:'Color',Value:selectedShape.color, Type:'color'}]" @adjust="(k,v)=>{selectedShape[k]=v; console.log(k,v)}"></Properties>
+      <Properties v-if="(selectedShape && !selectedShape.UnEditable)" :propertyArray="[{Key:'Left',Value:selectedShape.left, Type:'number'},{Key:'Top',Value:selectedShape.top, Type:'number'},{Key:'Width',Value:selectedShape.width, Type:'number'},{Key:'Height',Value:selectedShape.height, Type:'number'},{Key:'Color',Value:selectedShape.color, Type:'color'}]" @adjust="(k,v)=>{selectedShape[k.toLowerCase()]=v; console.log(k,v)}"></Properties>
     </sideBar>
     <canvas width="1250" height="700" id="canv" @click="dot"></canvas><br>
     <label  v-if="download"><a @click="download()">Download</a> <label>&nbsp;&nbsp;&nbsp;&nbsp;</label> <a>Save to Profile</a> <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>  <a>Save as Video</a></label>
