@@ -318,4 +318,8 @@ let Zero = 1/(10**16)
 let getShapeList = function (){
     return shapeList
 }
-export {Shape,Rectangle,ShapeImage, Clump, intF,setXY, Camera,Pi,Zero, Triangle, Polygon, Line,getShapeList} 
+let setShapeList = function (list){
+    shapeList = list
+    return shapeList
+}
+export {Shape,Rectangle,ShapeImage, Clump, intF,setXY, Camera,Pi,Zero, Triangle, Polygon, Line,getShapeList,setShapeList} 

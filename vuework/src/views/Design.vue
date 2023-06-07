@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import { SUPA } from '../JS/supa.js';
 import sideBar from '../components/sideBar.vue'
 import Stores from '../stores/counter';
-import { Rectangle, Shape, ShapeImage, intF,setXY,Camera, Clump, Pi, Zero, Triangle, Polygon, Line,getShapeList } from "../JS/shape.js"
+import { Rectangle, Shape, ShapeImage, intF,setXY,Camera, Clump, Pi, Zero, Triangle, Polygon, Line,getShapeList,setShapeList } from "../JS/shape.js"
 import { Animation, JointBasedAnimation, Joint, Transition} from "../JS/animate.js"
 import Properties from '../components/Properties.vue';
 import { storeToRefs } from 'pinia';
@@ -14,6 +14,7 @@ let download = ref(false), CREATE
 let mouse = [0,0]
 let render = ref(true)
 let id =  new URL(window.location).searchParams.get("id")
+
 function pointLiesOnRectangle(x,y,top,left,bottom,right){
   return (x<=right && x>=left) && (y<=bottom && y>=top)
 }
@@ -35,7 +36,10 @@ function dot(){
     intF(ctx)
     }
   }, 1000/60);
-
+  setShapeList([])
+  if (id && user) {
+  setShapeList(user.user_metadata.designs.find(c=>c.canvas.id == id).drawing)
+  }
   download.value = function(){
     let url = canv.toDataURL()
     let link = document.createElement("a")
@@ -56,36 +60,7 @@ function dot(){
   }
 
   
-  window.onmousemove= function(e){}/*
-  mouse[0] = e.clientX
-  mouse[1] = e.clientY
-  if (canv){
-   let prop = canv.getBoundingClientRect()
-   mouse[0] -= prop.left
-   mouse[1] -= prop.top
-let newHoveredShape
-    shapeList.forEach(s=>{
-      if (s.shape == "Rectangle" || s.shape=="Triangle"){
-        if(pointLiesOnRectangle(mouse[0],mouse[1],s.top,s.left,s.top + s.height, s.left +s.width)){
-         newHoveredShape = s
-        }
-      }
-    })
-    if (hoveredShape && (!(pointLiesOnRectangle(mouse[0],mouse[1],hoveredShape.top,hoveredShape.left,hoveredShape.top + hoveredShape.height, hoveredShape.left +hoveredShape.width)) || hoveredShape!=newHoveredShape)){
-      if (hoveredShape!= selectedShape){
-      hoveredShape.setBorder("none")
-      }
-      hoveredShape = false
-    } 
-    if (newHoveredShape){
-      if (newHoveredShape!=selectedShape.value){
-      newHoveredShape.setBorder(4,[8,4],"#5AF")
-      }
-      hoveredShape = newHoveredShape
-    }
-  }
-  
-}*/
+
 window.onclick = function(e){
   mouse[0] = e.clientX
   mouse[1] = e.clientY

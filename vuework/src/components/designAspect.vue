@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from 'vue';
+import { RouterLink } from 'vue-router';
 import {Shape,Rectangle,ShapeImage, Clump, intF,setXY, Camera,Pi,Zero, Triangle, Polygon, Line,getShapeList} from "../JS/shape.js"
 let prop = defineProps(["canvas","designArray"])
 let ar = prop.canvas.width/prop.canvas.height
@@ -15,7 +16,9 @@ setTimeout(()=>{
     <div>
         <canvas :style="`aspect-ratio:${ar}`" id="canv"></canvas>
         <h2><slot></slot></h2>
-        <a>Edit/Save</a>
+        <RouterLink :to="{name:'design',     query: {
+      id: `${prop.canvas.id}`
+    }}" > Edit/Save </RouterLink>
     </div>
 </template>
 
